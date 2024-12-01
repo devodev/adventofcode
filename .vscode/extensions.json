@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "DavidAnson.vscode-markdownlint",
+    "EditorConfig.EditorConfig",
+    "fill-labs.dependi",
+    "JScearcy.rust-doc-viewer",
+    "mhutchie.git-graph",
+    "ms-azuretools.vscode-docker",
+    "redhat.vscode-yaml",
+    "rust-lang.rust-analyzer",
+    "shardulm94.trailing-spaces",
+    "tamasfe.even-better-toml",
+    "usernamehw.errorlens",
+    "yzhang.markdown-all-in-one",
+  ]
+}
