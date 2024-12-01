@@ -1,0 +1,15 @@
+{
+  "window.title": "${dirty}${rootName}",
+  "markdown.extension.toc.levels": "2..6",
+  "editor.formatOnSave": false,
+  "[rust]": {
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.formatOnSave": true
+  },
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.rustfmt.extraArgs": [
+    "+nightly"
+  ],
+}
