@@ -59,5 +59,6 @@ Once again consider your left and right lists. What is their similarity score?
 ### Part 2 Solution
 
 ```bash
-# TODO
+$ cargo run --release -- --input 2024/day01/input.txt 2024 01 part2
+24869388
 ```

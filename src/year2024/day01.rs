@@ -1,7 +1,7 @@
-use std::collections::BinaryHeap;
+use std::collections::{BinaryHeap, HashMap};
 
 use adventofcode::split2;
-use anyhow::{anyhow, Result};
+use anyhow::Result;
 
 #[derive(Debug, clap::Args)]
 pub struct Args {
@@ -71,6 +71,17 @@ fn part1_sort(input: String) -> Result<()> {
     Ok(())
 }
 
-fn part2(_input: String) -> Result<()> {
-    Err(anyhow!("not implemented"))
+fn part2(input: String) -> Result<()> {
+    let mut col1 = Vec::new();
+    let mut col2: HashMap<u32, u32> = HashMap::new();
+    for line in input.lines() {
+        let (left, right) = split2::<u32>(line)?;
+        col1.push(left);
+        col2.entry(right).and_modify(|v| *v += 1).or_insert(1);
+    }
+
+    let similarity_score: u32 = col1.iter().map(|v| v * col2.get(v).unwrap_or(&0)).sum();
+    println!("{similarity_score}");
+
+    Ok(())
 }
