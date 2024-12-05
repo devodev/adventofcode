@@ -1,6 +1,7 @@
 mod day01;
 mod day02;
 mod day03;
+mod day04;
 
 use anyhow::Result;
 
@@ -21,6 +22,9 @@ pub enum Commands {
     /// Advent of Code 2024 - Day 03 - Mull It Over.
     #[command(visible_aliases = &["day3", "03", "3"])]
     Day03(day03::Args),
+    /// Advent of Code 2024 - Day 04 - Ceres Search.
+    #[command(visible_aliases = &["day4", "04", "4"])]
+    Day04(day04::Args),
 }
 
 impl Args {
@@ -29,6 +33,7 @@ impl Args {
             Commands::Day01(args) => args.run(input),
             Commands::Day02(args) => args.run(input),
             Commands::Day03(args) => args.run(input),
+            Commands::Day04(args) => args.run(input),
         }
     }
 }
