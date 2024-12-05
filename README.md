@@ -16,3 +16,4 @@ This repository hosts my solutions (and sometimes attempts) for
 - Day 01: [Historian Hysteria](./2024/day01/README.md)
 - Day 02: [Red-Nosed Reports](./2024/day02/README.md)
 - Day 03: [Mull It Over](./2024/day03/README.md)
+- Day 04: [Ceres Search](./2024/day04/README.md)
