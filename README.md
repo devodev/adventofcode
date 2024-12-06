@@ -17,3 +17,4 @@ This repository hosts my solutions (and sometimes attempts) for
 - Day 02: [Red-Nosed Reports](./2024/day02/README.md)
 - Day 03: [Mull It Over](./2024/day03/README.md)
 - Day 04: [Ceres Search](./2024/day04/README.md)
+- Day 05: [Print Queue](./2024/day05/README.md)
