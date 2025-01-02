@@ -21,3 +21,4 @@ This repository hosts my solutions (and sometimes attempts) for
 - Day 06: [Guard Gallivant](./2024/day06/README.md)
 - Day 07: [Bridge Repair](./2024/day07/README.md)
 - Day 08: [Resonant Collinearity](./2024/day08/README.md)
+- Day 09: [Disk Fragmenter](./2024/day09/README.md)
