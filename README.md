@@ -23,3 +23,4 @@ This repository hosts my solutions (and sometimes attempts) for
 - Day 08: [Resonant Collinearity](./2024/day08/README.md)
 - Day 09: [Disk Fragmenter](./2024/day09/README.md)
 - Day 10: [Hoof It](./2024/day10/README.md)
+- Day 11: [Plutonian Pebbles](./2024/day11/README.md)
