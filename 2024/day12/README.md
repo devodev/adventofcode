@@ -24,5 +24,5 @@ $ cargo run --release -- --input 2024/day12/input.txt 2024 12 part1
 
 ```bash
 $ cargo run --release -- --input 2024/day12/input.txt 2024 12 part2
-TODO
+904114
 ```
