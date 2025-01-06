@@ -26,3 +26,4 @@ This repository hosts my solutions (and sometimes attempts) for
 - Day 11: [Plutonian Pebbles](./2024/day11/README.md)
 - Day 12: [Garden Groups](./2024/day12/README.md)
 - Day 13: [Claw Contraption](./2024/day13/README.md)
+- Day 14: [Restroom Redoubt](./2024/day14/README.md)
