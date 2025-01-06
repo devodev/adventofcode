@@ -1,6 +1,7 @@
 use std::ops::Rem;
 
 use anyhow::Result;
+use itertools::Itertools;
 use regex::Regex;
 use tracing::info;
 
@@ -29,6 +30,50 @@ impl Args {
 }
 
 fn part1(input: String) -> Result<()> {
+    let problems = parse_problems(&input);
+    info!("problems: {problems:?}");
+
+    let solved: Vec<_> = problems.iter().map(|p| p.solve()).collect();
+    info!("solved: {solved:?}");
+
+    let costs = (3, 1);
+    let tokens: i64 = solved
+        .into_iter()
+        .flatten()
+        .map(|(a, b)| (a * costs.0) + (b * costs.1))
+        .sum();
+
+    println!("{tokens}");
+    Ok(())
+}
+
+fn part2(input: String) -> Result<()> {
+    let mut problems = parse_problems(&input);
+    info!("problems: {problems:?}");
+
+    let unit_conversion_error = 10000000000000;
+    let solved: Vec<_> = problems
+        .iter_mut()
+        .update(|p| {
+            p.prize.0 += unit_conversion_error;
+            p.prize.1 += unit_conversion_error;
+        })
+        .map(|p| p.solve())
+        .collect();
+    info!("solved: {solved:?}");
+
+    let costs = (3, 1);
+    let tokens: i64 = solved
+        .into_iter()
+        .flatten()
+        .map(|(a, b)| (a * costs.0) + (b * costs.1))
+        .sum();
+
+    println!("{tokens}");
+    Ok(())
+}
+
+fn parse_problems(input: &str) -> Vec<Problem> {
     let button_re = Regex::new(r"Button ([AB]): X\+(\d+), Y\+(\d+)").unwrap();
     let prize_re = Regex::new(r"Prize: X=(\d+), Y=(\d+)").unwrap();
 
@@ -52,31 +97,14 @@ fn part1(input: String) -> Result<()> {
             current_problem = Problem::default();
         };
     }
-    info!("problems: {problems:?}");
-
-    let solved: Vec<_> = problems.iter().map(|p| p.solve()).collect();
-    info!("solved: {solved:?}");
-
-    let costs = (3, 1);
-    let tokens: i32 = solved
-        .into_iter()
-        .flatten()
-        .map(|(a, b)| (a * costs.0) + (b * costs.1))
-        .sum();
-
-    println!("{tokens}");
-    Ok(())
-}
-
-fn part2(_input: String) -> Result<()> {
-    Ok(())
+    problems
 }
 
 #[derive(Debug, Clone, Default)]
 struct Problem {
-    button_a: (i32, i32),
-    button_b: (i32, i32),
-    prize: (i32, i32),
+    button_a: (i64, i64),
+    button_b: (i64, i64),
+    prize: (i64, i64),
 }
 
 impl Problem {
@@ -119,7 +147,7 @@ impl Problem {
     // a1c2(109650) - c1a2(676820)  = -567170
     // ---------------------------- = ------- = 86 = b
     // a1b2(629)    - b1a2(7224)    = -6,595
-    fn solve(&self) -> Option<(i32, i32)> {
+    fn solve(&self) -> Option<(i64, i64)> {
         cramers_rule(
             (self.button_a.0, self.button_b.0, self.prize.0),
             (self.button_a.1, self.button_b.1, self.prize.1),
@@ -130,7 +158,7 @@ impl Problem {
 // In linear algebra, Cramer's rule is an explicit formula for the solution of a system of linear
 // equations with as many equations as unknowns, valid whenever the system has a unique solution.
 // https://en.wikipedia.org/wiki/Cramer%27s_rule
-fn cramers_rule(eq1: (i32, i32, i32), eq2: (i32, i32, i32)) -> Option<(i32, i32)> {
+fn cramers_rule(eq1: (i64, i64, i64), eq2: (i64, i64, i64)) -> Option<(i64, i64)> {
     let (a1, b1, c1) = eq1;
     let (a2, b2, c2) = eq2;
 
