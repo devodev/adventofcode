@@ -27,3 +27,4 @@ This repository hosts my solutions (and sometimes attempts) for
 - Day 12: [Garden Groups](./2024/day12/README.md)
 - Day 13: [Claw Contraption](./2024/day13/README.md)
 - Day 14: [Restroom Redoubt](./2024/day14/README.md)
+- Day 15: [Warehouse Woes](./2024/day15/README.md)
