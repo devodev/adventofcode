@@ -1,4 +1,5 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
+use std::fmt::Display;
 use std::ops::{Deref, Rem};
 use std::str::FromStr;
 use std::sync::LazyLock;
@@ -52,23 +53,57 @@ fn part2(input: String) -> Result<()> {
     let mut robots = Robots::from_str(&input).unwrap();
     info!("robots: {robots:?}");
 
-    let max_iterations = 1_000_000;
-    let mut iterations = 0;
-    loop {
-        if iterations == max_iterations {
-            panic!("max iterations ({max_iterations}) reached without a solution");
-        }
+    let max_iterations = 10_000;
+    let mut list: Vec<_> = (0..max_iterations)
+        .map(|i| {
+            if i != 0 {
+                robots.move_once();
+            }
+            // I got this idea from reddit.. still very satisfying!
+            //
+            // ###############################
+            // #.............................#
+            // #.............................#
+            // #.............................#
+            // #.............................#
+            // #..............#..............#
+            // #.............###.............#
+            // #............#####............#
+            // #...........#######...........#
+            // #..........#########..........#
+            // #............#####............#
+            // #...........#######...........#
+            // #..........#########..........#
+            // #.........###########.........#
+            // #........#############........#
+            // #..........#########..........#
+            // #.........###########.........#
+            // #........#############........#
+            // #.......###############.......#
+            // #......#################......#
+            // #........#############........#
+            // #.......###############.......#
+            // #......#################......#
+            // #.....###################.....#
+            // #....#####################....#
+            // #.............###.............#
+            // #.............###.............#
+            // #.............###.............#
+            // #.............................#
+            // #.............................#
+            // #.............................#
+            // #.............................#
+            // ###############################
+            let neighboor_prob_score = robots.compute_neighboor_prob_score();
+            (neighboor_prob_score, robots.clone(), i)
+        })
+        .collect();
+    list.sort_by(|a, b| b.0.cmp(&a.0));
 
-        iterations += 1;
+    let candidate = list.first().unwrap();
+    info!("iteration {}:\n{}", candidate.0, candidate.1);
 
-        robots.move_once();
-        let quadrants = robots.compute_quadrants();
-        if quadrants.is_christmas_tree(robots.width, robots.height) {
-            break;
-        }
-    }
-
-    println!("{iterations}");
+    println!("{}", candidate.2);
     Ok(())
 }
 
@@ -137,6 +172,23 @@ impl Deref for Robots {
     }
 }
 
+impl Display for Robots {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let positions: HashSet<(u32, u32)> = HashSet::from_iter(self.robots.iter().map(|r| r.position));
+        for y in 0..self.height {
+            for x in 0..self.width {
+                if positions.contains(&(x, y)) {
+                    write!(f, "#")?;
+                } else {
+                    write!(f, ".")?;
+                }
+            }
+            writeln!(f)?;
+        }
+        Ok(())
+    }
+}
+
 #[derive(Debug, Default)]
 struct Quadrants(
     HashMap<(u32, u32), usize>,
@@ -153,18 +205,6 @@ impl Quadrants {
             self.2.values().sum(),
             self.3.values().sum(),
         )
-    }
-
-    fn compute_uniques(&self) -> (usize, usize, usize, usize) {
-        (self.0.len(), self.1.len(), self.2.len(), self.3.len())
-    }
-
-    fn is_christmas_tree(&self, width: u32, height: u32) -> bool {
-        let center = (width / 2, height / 2);
-        let size = center.0 * center.1;
-        let (q1, q2, q3, q4) = self.compute_uniques();
-        // TODO
-        false
     }
 }
 
@@ -192,5 +232,24 @@ impl Robots {
                 q.entry(r.position).and_modify(|e| *e += 1).or_insert(1);
                 acc
             })
+    }
+
+    fn compute_neighboor_prob_score(&self) -> u32 {
+        let positions: HashSet<(u32, u32)> = HashSet::from_iter(self.robots.iter().map(|r| r.position));
+
+        let directions = [(-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)];
+        self.robots
+            .iter()
+            .flat_map(|r| {
+                directions.iter().map(|d| {
+                    let pos = (r.position.0 as i32 + d.0, r.position.1 as i32 + d.1);
+                    if pos.0 >= 0 && pos.1 >= 0 && positions.contains(&(pos.0 as u32, pos.1 as u32)) {
+                        1
+                    } else {
+                        0
+                    }
+                })
+            })
+            .sum()
     }
 }
