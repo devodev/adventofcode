@@ -12,7 +12,7 @@
 
 ```bash
 $ cargo run --release -- --input 2024/day16/input.txt 2024 16 part1
-TODO
+108504
 ```
 
 ## Part 2

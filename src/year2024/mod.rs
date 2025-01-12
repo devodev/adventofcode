@@ -53,25 +53,25 @@ pub enum Commands {
     #[command(visible_aliases = &["day9", "09", "9"])]
     Day09(day09::Args),
     /// Advent of Code 2024 - Day 10 - Hoof It.
-    #[command(visible_aliases = &["day10", "10", "10"])]
+    #[command(visible_aliases = &["10"])]
     Day10(day10::Args),
     /// Advent of Code 2024 - Day 11 - Plutonian Pebbles.
-    #[command(visible_aliases = &["day11", "11", "11"])]
+    #[command(visible_aliases = &["11"])]
     Day11(day11::Args),
     /// Advent of Code 2024 - Day 12 - Garden Groups.
-    #[command(visible_aliases = &["day12", "12", "12"])]
+    #[command(visible_aliases = &["12"])]
     Day12(day12::Args),
     /// Advent of Code 2024 - Day 13 - Claw Contraption.
-    #[command(visible_aliases = &["day13", "13", "13"])]
+    #[command(visible_aliases = &["13"])]
     Day13(day13::Args),
     /// Advent of Code 2024 - Day 14 - Restroom Redoubt.
-    #[command(visible_aliases = &["day14", "14", "14"])]
+    #[command(visible_aliases = &["14"])]
     Day14(day14::Args),
     /// Advent of Code 2024 - Day 15 - Warehouse Woes.
-    #[command(visible_aliases = &["day15", "15", "15"])]
+    #[command(visible_aliases = &["15"])]
     Day15(day15::Args),
     /// Advent of Code 2024 - Day 16 - Reindeer Maze.
-    #[command(visible_aliases = &["day16", "16", "16"])]
+    #[command(visible_aliases = &["16"])]
     Day16(day16::Args),
 }
 
